@@ -31,17 +31,18 @@ public class Player_Controller : MonoBehaviour
         if (isDead) return;
 
         
-        if (Input.GetButtonDown(GameManager.JMP) && jumpCount < 2)
+        if (Input.GetButtonDown(GameManager.JMP) && jumpCount > 0)
         {
-            jumpCount++;
+            jumpCount--;
             rBody.velocity = Vector2.zero;
             rBody.AddForce(Vector2.up * jumpForce);
             audiosource.Play();
         }
         else if(Input.GetButtonUp(GameManager.JMP) && rBody.velocity.y > 0f)
         {
-            rBody.velocity = new Vector2(rBody.velocity.x, rBody.velocity.y * 0.5f);
+            rBody.velocity = new Vector2(0f, rBody.velocity.y * 0.5f);
         }
+        rBody.velocity = new Vector2(0f, rBody.velocity.y);
 
         anim.SetBool("Grounded", isGrounded);
     }
@@ -70,7 +71,7 @@ public class Player_Controller : MonoBehaviour
     {
         if (collision.contacts[0].normal.y < 0.7f) return;
         isGrounded = true;
-        jumpCount = 0;
+        jumpCount = 2;
     }
 
     private void OnCollisionExit2D(Collision2D collision)

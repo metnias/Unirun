@@ -14,11 +14,10 @@ public class Platform_Handler : MonoBehaviour
         int c = hazards.Length / 2;
         for (int i = 0; i < hazards.Length; i++)
         {
-            if(Random.Range(0, 3) == 0)
+            if (Random.value < 0.3f && c > 0)
             {
                 hazards[i].SetActive(true);
                 c--;
-                if (c < 1) break;
             }
             else hazards[i].SetActive(false);
         }
